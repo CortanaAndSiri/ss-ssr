@@ -51,29 +51,29 @@ Issues
 Marketplace
 Explore
  
-@Litangren 
-71
-1,365 599 flyzy2005/ss-fly
- Code  Issues 3  Pull requests 0  Projects 0  Wiki  Insights
-一键脚本搭建SS 搭建SSR服务并开启BBR加速
-fly edited this page on 29 Jan · 6 revisions
+
+### 一键脚本搭建SS 搭建SSR服务并开启BBR加速
+
+
 本文从零开始，手把手教你搭建自己的shadowsocks/shadowsocksR代理服务器实现科学上网。可用翻墙方法，一键脚本，小白可以搭建。内容包括VPS购买，连接VPS，一键搭建shadowsocks/shadowsocksR，开启bbr加速，客户端配置shaodowsocks。
 
 录了个视频教程，不想看文字的可以看视频，或者结合起来一起看：搭建ss视频教程。（需科学上网，访问方式参考：flyzy小站最新镜像网站地址与访问方式）
 
-购买VPS
+# 购买VPS
+
 VPS（Virtual private server，虚拟专用服务器），个人用来搭建一些博客，跑跑脚本足够了。今天的教程就用VPS来搭建属于自己的shaodowsocks，一个人独占一条线路。
 
 Vultr是美国的一个VPS服务商，全球有15个数据中心，可以一键部署服务器。采用小时计费策略，可以在任何时间新建或者摧毁VPS。价格低廉，最便宜的只要2.5一个月，支持支付宝。最主要的是IP被墙了，换一个IP也只要1美分。
 
-新用户注册
+# 新用户注册
+
 优惠注册链接：www.vultr.com
 
-Vultr新建账户
+# Vultr新建账户
 
 填写邮箱、密码（至少10个字符，并且有一个大写字母&一个小写字母&一个数字），最后点击后面的Create Account即可。注册完会收到一封验证邮件，验证即可~
 
-充值
+# 充值
 Vultr实际上是折算成小时来计费的，比如服务器是5美元1个月，那么每小时收费为5/30/24=0.0069美元 会自动从账号中扣费，只要保证账号有钱即可~而费用计算是从你开通时开始计算的，不管你有没有使用都会扣费，即使你处于关机状态，唯一停止计费的方法是Destroy掉这个服务器！Vultr提供的服务器配置包括：
 
 2.5美元/月的服务器配置信息：单核 512M内存 20G SSD硬盘 100M带宽 500G流量/月
@@ -92,10 +92,10 @@ Vultr充值
 
 支持支付宝，充值10刀，按小时扣费，只要保证账户有余额，你的服务器就会一直运行。
 
-新机器创建
+# 新机器创建
 选择右上角的蓝色+号按钮，进入Deploy页面，选择服务器配置：
 
-Vultr新建VPS
+# Vultr新建VPS
 
 目前2.5的还有迈尔密和纽约的没有售罄，对于ping值和速度要求不是特别高的可以选择这里的（毕竟美国东海岸城市，离国内有点远）~
 
@@ -108,6 +108,7 @@ Vultr IPv6
 其他都直接默认即可最后点击右下角的Deploy Now开始新建
 
 获取VPS登录信息
+
 选择Deploy后，过个几分钟，就可以看到自己的服务器信息了，具体位置在Servers->Instances，点击选择你新建的实例：
 
 Vultr VPS信息
@@ -115,7 +116,9 @@ Vultr VPS信息
 其中，红框选中的部分从上到下依次是IP，用户名和密码~
 
 连接VPS
-Windows连接VPS
+
+# Windows连接VPS
+
 1.下载Xsehll
 
 直接在软件下载中心下载，下载后正常安装即可~
@@ -143,17 +146,27 @@ Xshell密码
 Xshell成功
 
 Mac OS连接VPS
+
 直接打开Terminal终端，输入：ssh root@43.45.43.21，之后输入你的密码就可以登录了（输入密码的时候屏幕上不会有显示）
 
 Mac Linux远程VPS
 
-一键搭建shaodowsocks/shadowsocksR
+# 一键搭建shaodowsocks/shadowsocksR
+
 注意，shadowsocks/shadowsocksR这两个只需要搭建一个就可以了！！！！SS与SSR之间的比较一直是各有各的说法，王婆卖瓜自卖自夸。我用的是SS，因为SS的iOS版本比较容易下载，并且被没有觉得ss容易被探查到~
 
-一键搭建shadowsocks
+# 一键搭建shadowsocks
+
 1.下载一键搭建ss脚本文件（直接复制这段代码运行即可）
 
+
 git clone https://github.com/flyzy2005/ss-fly
+
+如果提示bash: git: command not found，则先安装git：
+
+Centos执行这个： yum -y install git
+
+Ubuntu/Debian执行这个： apt-get update && apt-get -y install git
 
 
 2.运行搭建ss脚本代码
@@ -172,14 +185,20 @@ ss-fly/ss-fly.sh -i flyzy2005.com 1024
 3.相关ss操作
 
 修改配置文件：vim /etc/shadowsocks.json
+
 停止ss服务：ssserver -c /etc/shadowsocks.json -d stop
+
 启动ss服务：ssserver -c /etc/shadowsocks.json -d start
+
 重启ss服务：ssserver -c /etc/shadowsocks.json -d restart
+
+
 4.卸载ss服务
 
 ss-fly/ss-fly.sh -uninstall
 
 一键搭建shadowsocksR
+
 再次提醒，如果安装了SS，就不需要再安装SSR了，如果要改装SSR，请按照上一部分内容的教程先卸载SS！！！
 
 1.下载一键搭建ssr脚本（只需要执行一次，卸载ssr后也不需要重新执行）
@@ -201,25 +220,41 @@ ss-fly/ss-fly.sh -ssr
 全部选择结束后，会看到如下界面，就说明搭建ssr成功了：
 
 Congratulations, ShadowsocksR server install completed!
+
 Your Server IP        :你的服务器ip
+
 Your Server Port      :你的端口
+
 Your Password         :你的密码
+
 Your Protocol         :你的协议
+
 Your obfs             :你的混淆
+
 Your Encryption Method:your_encryption_method
  
 Welcome to visit:https://shadowsocks.be/9.html
 Enjoy it!
+
+
 4.相关操作ssr命令
 
 启动：/etc/init.d/shadowsocks start
+
 停止：/etc/init.d/shadowsocks stop
+
 重启：/etc/init.d/shadowsocks restart
+
 状态：/etc/init.d/shadowsocks status
+
  
 配置文件路径：/etc/shadowsocks.json
+
 日志文件路径：/var/log/shadowsocks.log
+
 代码安装目录：/usr/local/shadowsocks
+
+
 5.卸载ssr服务
 
 ./shadowsocksR.sh uninstall
@@ -245,6 +280,7 @@ net.ipv4.tcp_available_congestion_control = bbr cubic reno
 后面有bbr，则说明已经开启成功了。
 
 本机配置shadowsocks
+
 各版本的shadowsocks客户端下载地址可以参考：Android/Windows/iOS/Mac/Linux shadowsocks客户端下载地址
 
 WIndows客户端配置
@@ -278,23 +314,19 @@ shadowsocks苹果客户端经常会被App Store下架，可以在App Store搜索
 
  Pages 5
 Find a Page…
+
 Home
+
 一键脚本搭建SS 搭建SSR服务并开启BBR加速
+
 一键脚本搭建V2Ray V2Ray配置与优化
+
 搬瓦工一键搭建shadowsocks shadowsocksR并开启BBR加速
+
 搬瓦工后台一键开启shadowsocks shadowsocksR Server
+
 Clone this wiki locally
+
 https://github.com/flyzy2005/ss-fly.wiki.git
-© 2019 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
+
 
